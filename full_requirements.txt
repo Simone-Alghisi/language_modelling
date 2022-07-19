@@ -1,0 +1,11 @@
+# requirements for non-nixos users
+autopep8==1.6.0
+jupyterlab==3.4.3
+nltk==3.6.7
+numpy==1.22.1
+matplotlib==3.5.2
+pandas==1.4.0
+torch==1.11.0
+scipy==1.7.3
+tensorboard==2.8.0
+tqdm==4.62.3
