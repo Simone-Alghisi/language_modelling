@@ -1,0 +1,8 @@
+% (approx. 200 words)
+\textit{Language modelling} is the task of predicting the next word in a document by considering the preceding words. This can be done by employing a language model, which offers a way to assign a probability to a sequence of words. Of course, such probabilities are obtained through training, and, once it has been performed, the model can be employed for a wide range of natural language tasks like text generation, text classification, and question answering.
+
+The standard language modelling techniques involve either N-gram Language Models or Neural Language Models. The first ones rely on n-grams, i.e. sequences of $n$ words used to express the probability of the last word $w_n$ given previous context $w_{1:n-1}$, namely $P(w_n | w_{1:n-1})$. To improve such models, smoothing algorithms were introduced to provide a more sophisticated way to estimate the probability of n-grams, e.g. rely on lower-order n-gram counts through backoff or interpolation.
+
+However, with the introduction of neural networks the state-of-the-art changed: neural language models didn't need any smoothing, they could handle much longer histories, and generalise over contexts of similar words. Of course, improved performance comes with a cost: such models are much slower to train.
+
+Despite their differences, a language model performance is usually measured intrinsically (i.e. independently of the application) using perplexity; nonetheless, extrinsic evaluation is possible by embedding the language model in an application to measure the improvement.

@@ -1,2 +1,6 @@
 .direnv
 .ipynb_checkpoints
+*.pdf
+results
+runs
+weights

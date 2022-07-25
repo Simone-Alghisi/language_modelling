@@ -1,0 +1,45 @@
+% (approx. 200-500 words)
+
+In order to address the proposed language modelling task, I have decided to start from a simple LSTM model (to which I will refer as \textit{Baseline LSTM}), given the fact that the memory cell suffers less from vanishing gradient issue. From the results obtained on the baseline, I tried to improve the model performance by embedding optimisation and regularisation techniques that characterise the \textit{AWD-LSTM} model, reaching the required perplexity.
+
+\subsection{Architecture}
+\label{subsec:architecture}
+The underlying architecture of the two models is overall the same:
+\begin{enumerate}
+    \item first of all, the words are mapped into a vector space using a neural embedding layer, which can be trained jointly with the parameters of the language modelling task;
+    \item then, the obtained representation is passed to the LSTM, in order to predict the word at time $t$ while considering the previous context $1:t-1$;
+    \item finally, each output of the LSTM is mapped back to a word in the vocabulary using a fully connected layer, which gives the class probability for each word.
+\end{enumerate}
+
+\subsubsection{Baseline LSTM}
+Baseline LSTM follows exactly the implementation described in \Cref{subsec:architecture}. In particular, it has an embedding and a hidden dimension of $300$ units, and only a single LSTM recurrent layer. 
+
+\subsubsection{AWD-LSTM}
+Instead, the proposed implementation of AWD-LSTM adds some other elements to the Baseline, such as:
+\begin{itemize}
+    \item \textbf{Weight Drop}, or \textbf{DropConnect} \cite{wanRegularizationNeuralNetworks2013}, i.e. a generalisation of Dropout \cite{hintonImprovingNeuralNetworks2012}, for regularising large fully-connected layers within neural networks. In practice, DropConnect sets a randomly selected subset of weights within the network to zero. By performing DropConnect on the hidden-to-hidden weight matrices within the LSTM, it is possible to prevent overfitting from occurring on the recurrent connections of the LSTM;
+    \item \textbf{Locked Dropout}, or \textbf{Variational Dropout} \cite{galTheoreticallyGroundedApplication}, which allows sampling a binary dropout mask only once upon the first call and then repeatedly uses that locked dropout mask for all repeated connections within the forward and backward pass;
+    \item \textbf{Embedding Dropout} \cite{galTheoreticallyGroundedApplication} is equivalent to performing dropout on the embedding matrix at a word level, where the dropout is broadcast across all the word vector's embedding;
+    \item \textbf{Parameter Tying} is employed on the embedding and classification layers to reduce the overall number of parameters required, and jointly learn a representation that is good for both encoding and decoding words;
+    \item \textbf{Weight Initialisation} is useful to make the search start from a more favourable position, to help SGD converge faster.
+\end{itemize}
+Unlike before, the embedding and hidden dimension has been changed to $400$, and the number of recurrent layers to 3. Furthermore, the hyper-parameters choice has been performed accordingly to Merity et al. findings.
+
+\subsection{Optimizer}
+The optimizer that is used to train the models is the classical Stochastic Gradient Descent (SGD). However, I have also introduced the so-called \textbf{Non-monotonically Triggered ASGD} (NT-ASGD). The difference is that ASGD takes the mean of what is returned from the SGD step as the final solution, which is used to reduce the effect of noise and gives solutions closer to the optimum.
+
+\subsection{Pipeline}
+The training process can be subdivided as follows:
+\begin{enumerate}
+    \item first of all, a vocabulary is created to assign each word to a unique number, including special tokens such as `\texttt{<eos>}', and `\texttt{<pad>}';
+    \item then, each word in each sentence is mapped to its corresponding value, and `\texttt{<eos>}' is added. The resulting dataset returns three elements for each sentence $s$, i.e. an \textit{input} $i = s[0:n-1]$, a  \textit{target} $t = s[1:n]$, and a \textit{length} $l$ (i.e. to consider packed sequences). Moreover, to ensure that all elements in a batch have the same length, padding is applied by adding `\texttt{<pad>}';
+    \item finally, for the forward pass the model considers $(i, l) \in s$, while the prediction $p$ is then compared along with $t \in s$ using \textit{Cross Entropy Loss} and the error is backpropagated.
+\end{enumerate}
+
+\subsection{TBPTT}
+For the training of AWD-LSTM, I have also implemented TBPTT. In particular, this required to change the current dataloader implementation, to split correctly the batches, and also the training cycle, to pass the last hidden state as input to the LSTM.
+
+Moreover, the TBPTT step is decided randomly at batch level to use more efficiently the data. However, I decided to change the original distribution from which to sample. In particular, the suggested distribution $\mathcal{N}(70, 5)$ led empirically to particularly unbalanced results, where $30\%$ of the times a length of $72$ is selected, meaning that less than $0.5\%$ of the sentences would be split. For this reason, I have decided to change such behaviour by sampling from $\mathcal{N}(50, 10)$ with $0.99$ probability, while from $\mathcal{N}(25, 10)$ with $0.01$.
+
+\subsection{Experiments}
+Several experiments were run using both Baseline LSTM and AWD-LSTM. In particular, in the second case I decided to turn off one optimisation/regularisation technique at the time (while keeping the other unchanged) to observe the actual effect it had on model performance. This led to a total of $12$ different runs, whose results can be found in \Cref{sec:eval}.

@@ -1,0 +1,81 @@
+
+@article{galTheoreticallyGroundedApplication,
+  title = {A {{Theoretically Grounded Application}} of {{Dropout}} in {{Recurrent Neural Networks}}},
+  author = {Gal, Yarin and Ghahramani, Zoubin},
+  pages = {9},
+  abstract = {Recurrent neural networks (RNNs) stand at the forefront of many recent developments in deep learning. Yet a major difficulty with these models is their tendency to overfit, with dropout shown to fail when applied to recurrent layers. Recent results at the intersection of Bayesian modelling and deep learning offer a Bayesian interpretation of common deep learning techniques such as dropout. This grounding of dropout in approximate Bayesian inference suggests an extension of the theoretical results, offering insights into the use of dropout with RNN models. We apply this new variational inference based dropout technique in LSTM and GRU models, assessing it on language modelling and sentiment analysis tasks. The new approach outperforms existing techniques, and to the best of our knowledge improves on the single model state-of-the-art in language modelling with the Penn Treebank (73.4 test perplexity). This extends our arsenal of variational tools in deep learning.},
+  langid = {english}
+}
+
+@misc{hintonImprovingNeuralNetworks2012,
+  title = {Improving Neural Networks by Preventing Co-Adaptation of Feature Detectors},
+  author = {Hinton, Geoffrey E. and Srivastava, Nitish and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan R.},
+  date = {2012-07-03},
+  number = {arXiv:1207.0580},
+  eprint = {1207.0580},
+  eprinttype = {arxiv},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.1207.0580},
+  url = {http://arxiv.org/abs/1207.0580},
+  urldate = {2022-07-24},
+  abstract = {When a large feedforward neural network is trained on a small training set, it typically performs poorly on held-out test data. This "overfitting" is greatly reduced by randomly omitting half of the feature detectors on each training case. This prevents complex co-adaptations in which a feature detector is only helpful in the context of several other specific feature detectors. Instead, each neuron learns to detect a feature that is generally helpful for producing the correct answer given the combinatorially large variety of internal contexts in which it must operate. Random "dropout" gives big improvements on many benchmark tasks and sets new records for speech and object recognition.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing}
+}
+
+@report{marcusBuildingLargeAnnotated1993,
+  title = {Building a {{Large Annotated Corpus}} of {{English}}: {{The Penn Treebank}}:},
+  shorttitle = {Building a {{Large Annotated Corpus}} of {{English}}},
+  author = {Marcus, Mitch},
+  date = {1993-04-30},
+  institution = {{Defense Technical Information Center}},
+  location = {{Fort Belvoir, VA}},
+  doi = {10.21236/ADA273556},
+  url = {http://www.dtic.mil/docs/citations/ADA273556},
+  urldate = {2022-07-23},
+  langid = {english}
+}
+
+@misc{merityRegularizingOptimizingLSTM2017,
+  title = {Regularizing and {{Optimizing LSTM Language Models}}},
+  author = {Merity, Stephen and Keskar, Nitish Shirish and Socher, Richard},
+  date = {2017-08-07},
+  number = {arXiv:1708.02182},
+  eprint = {1708.02182},
+  eprinttype = {arxiv},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.1708.02182},
+  url = {http://arxiv.org/abs/1708.02182},
+  urldate = {2022-07-23},
+  abstract = {Recurrent neural networks (RNNs), such as long short-term memory networks (LSTMs), serve as a fundamental building block for many sequence learning tasks, including machine translation, language modeling, and question answering. In this paper, we consider the specific problem of word-level language modeling and investigate strategies for regularizing and optimizing LSTM-based models. We propose the weight-dropped LSTM which uses DropConnect on hidden-to-hidden weights as a form of recurrent regularization. Further, we introduce NT-ASGD, a variant of the averaged stochastic gradient method, wherein the averaging trigger is determined using a non-monotonic condition as opposed to being tuned by the user. Using these and other regularization strategies, we achieve state-of-the-art word level perplexities on two data sets: 57.3 on Penn Treebank and 65.8 on WikiText-2. In exploring the effectiveness of a neural cache in conjunction with our proposed model, we achieve an even lower state-of-the-art perplexity of 52.8 on Penn Treebank and 52.0 on WikiText-2.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computation and Language,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing}
+}
+
+@inproceedings{mikolovRecurrentNeuralNetwork2010a,
+  title = {Recurrent Neural Network Based Language Model.},
+  booktitle = {In {{INTERSPEECH}} 2010,},
+  author = {Mikolov, Tomáš and Karafiát, Martin and Burget, Lukáš and {Jan} and Černocký, Honza " and Khudanpur, Sanjeev},
+  date = {2010},
+  pages = {1045--1048},
+  abstract = {Abstract A new recurrent neural network based language model (RNN LM) with applications to speech recognition is presented. Results indicate that it is possible to obtain around 50\% reduction of perplexity by using mixture of several RNN LMs, compared to a state of the art backoff language model. Speech recognition experiments show around 18\% reduction of word error rate on the Wall Street Journal task when comparing models trained on the same amount of data, and around 5\% on the much harder NIST RT05 task, even when the backoff model is trained on much more data than the RNN LM. We provide ample empirical evidence to suggest that connectionist language models are superior to standard n-gram techniques, except their high computational (training) complexity.}
+}
+
+@inproceedings{wanRegularizationNeuralNetworks2013,
+  title = {Regularization of {{Neural Networks}} Using {{DropConnect}}},
+  booktitle = {Proceedings of the 30th {{International Conference}} on {{Machine Learning}}},
+  author = {Wan, Li and Zeiler, Matthew and Zhang, Sixin and Cun, Yann Le and Fergus, Rob},
+  date = {2013-05-26},
+  pages = {1058--1066},
+  publisher = {{PMLR}},
+  issn = {1938-7228},
+  url = {https://proceedings.mlr.press/v28/wan13.html},
+  urldate = {2022-07-24},
+  abstract = {We introduce DropConnect, a generalization of DropOut, for regularizing large fully-connected layers within neural networks. When training with Dropout, a randomly selected subset of activations are set to zero within each layer. DropConnect instead sets a randomly selected subset of weights within the network to zero. Each unit thus receives input from a random subset of units in the previous layer. We derive a bound on the generalization performance of both Dropout and DropConnect. We then evaluate DropConnect on a range of datasets, comparing to Dropout, and show state-of-the-art results on several image recoginition benchmarks can be obtained by aggregating multiple DropConnect-trained models.},
+  eventtitle = {International {{Conference}} on {{Machine Learning}}},
+  langid = {english}
+}
+
+

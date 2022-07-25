@@ -1,0 +1,41 @@
+% (approx. 200-500 words)
+As introduced in \Cref{sec:intro}, the dataset used for training and evaluating the performance of the model is the word-level Penn Treebank by Mikolov et al. \cite{mikolovRecurrentNeuralNetwork2010a}, i.e. a processed version of the original Penn Treebank (PTB) by Marcus et al. \cite{marcusBuildingLargeAnnotated1993} for language modelling purposes. Such dataset is widely used in machine learning for NLP research. In particular, word-level PTB \textit{does not contain capital letters, numbers, and punctuations, and the vocabulary is capped at 10,000 unique words} -- which is relatively small compared to most modern datasets -- with no out-of-vocabulary (OOV) words. Furthermore, special tokens are already present in the datasets, e.g. `\texttt{<unk>}', to replace rare words and avoid possible OOV words; and `\texttt{N}', for numbers.
+
+\Cref{tab:ptb_stats} summarises some of the statistics extracted from the PTB dataset. The first thing that is possible to notice is that, given that there are no OOV words, we can construct our vocabulary starting from the training data. By doing that, we end up with $9,999$ unique words, to which we can add other special tokens such as `\texttt{<eos>}', to determine the end of a sequence, and also `\texttt{<pad>}', to pad sentences with different length, ending up with a total of $10,001$ words.
+
+\begin{table}[!t]
+    \centering
+    \caption{Statistics extracted from the PTB dataset}
+    \label{tab:ptb_stats}
+    \begin{tabular}{l r r r}
+        \toprule % <-- Toprule here
+        \textbf{} & \textbf{Train} & \textbf{Valid} & \textbf{Test} \\
+        \midrule % <-- Midrule here
+        \textbf{\# Sentences} & 42,068 & 3,370 & 3,761 \\
+        \textbf{\# Words} & 887,521 & 70,390 & 78,669 \\
+        \textbf{Split (\%)} & 85.51 & 6.85 & 7.64 \\
+        \textbf{OOV words (w.r.t. Train)} & / & 0 & 0 \\
+        \textbf{Avg sent. length (\# words)} & 21.10 & 20.89 & 20.92 \\
+        \textbf{Max sent. length (\# words)} & 82 & 74 & 77 \\
+        \textbf{Min sent. length (\# words)} & 1 & 1 & 1 \\
+        \bottomrule % <-- Bottomrule here
+    \end{tabular}
+\end{table}
+
+Going on, I discovered that the most three frequent words are, as it is possible to imagine:
+\begin{enumerate}
+    \item `the', around $5-6\%$;
+    \item `\texttt{<unk>}', around $4-5\%$;
+    \item `\texttt{N}', around $3-4\%$.
+\end{enumerate}
+
+In order to better understand how much train, valid, and test sets word distributions are correlated -- meaning how much it is possible to learn from the training to improve the model performance on the valid and test set -- I decided to dig further in: by considering the most one hundred frequent words of the three sets I discovered that:
+\begin{itemize}
+    \item $88/100$ most frequent words are are shared between train and valid;
+    \item $92/100$ most frequent words are are shared between train and test.
+\end{itemize}
+Given the fact that there is a considerable overlap between the most frequent words of train and validation, and train and test, this should allow the model to generalise what it learns (word context aside).
+
+%TODO... maybe a good place for a graphics
+
+Finally, sentence length (i.e. words per sentence) distribution stays pretty much the same across the three splits, meaning that there are no cases where we mostly have to deal with extremely short or extremely long sentences w.r.t. what the model has seen during the training. In particular, the sentence length distribution can be approximated by a Normal distribution with mean $\mu = 21$ and standard deviation $\sigma = 10$.

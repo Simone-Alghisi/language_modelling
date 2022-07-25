@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\usepackage{INTERSPEECH2021}
+\usepackage{cleveref}
+\usepackage{graphics}
+
+\graphicspath{assets}
+
+
+% HOW TO COUNT WORDS IN OVERLEAF
+% https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
+
+\title{\LARGE{Language Modelling with Recurrent Neural Networks}\\
+\large{\textit{Final Project of the Natural Language Understanding Course}}}
+\name{Simone Alghisi (229355)}
+
+\address{University of Trento}
+\email{simone.alghisi-1@studenti.unitn.it}
+
+\begin{document}
+
+\maketitle
+
+% Dear students, \\
+% here you can find a complete description of the sections that are mandatory for your project and you need to address them during the development, as well as your 4-page (+1 for References) project report.
+
+\section{Introduction}
+\label{sec:intro}
+\input{sections/1_introduction}
+
+\section{Task Formalisation}
+\label{sec:task}
+\input{sections/2_task_formalisation}
+
+\section{Data Description \& Analysis}
+\label{sec:data}
+\input{sections/3_data}
+
+\section{Model}
+\label{sec:model}
+\input{sections/4_model}
+
+\section{Evaluation}
+\label{sec:eval}
+\input{sections/5_evaluation}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{sections/6_conclusion}
+
+
+\bibliographystyle{IEEEtran}
+
+\bibliography{bibliography/mybib}
+
+\end{document}

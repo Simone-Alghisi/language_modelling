@@ -1,0 +1,17 @@
+% (approx. 100 words)
+The proposed task of Language Modelling (LM) for the NLU course required to
+\begin{enumerate}
+    \item implement a Language Model using one of the RNN architectures (eg. Vanilla, LSTM, GRU);
+    \item train it and evaluate its performance on the word-level Penn Treebank (PTB) dataset \cite{mikolovRecurrentNeuralNetwork2010a};
+    \item reach a baseline value of $140$ PP using a Vanilla RNN, or $90.7$ PP using an LSTM.
+\end{enumerate}
+
+As a starting point, I decided to implement a very basic model made of:
+\begin{itemize}
+    \item a neural embedding layer;
+    \item an LSTM, to capture context information;
+    \item a fully connected layer, for the final word prediction;
+\end{itemize}
+and obtained $137$ PP.
+
+To improve such results, I have considered the techniques described by Merity et. al \cite{merityRegularizingOptimizingLSTM2017}, reaching $81.43$ PP.
